@@ -29,7 +29,9 @@ public class Worker : IWorker
         if (controlSystem.GetEmptyPlaceSensor())
         {
             SimulatorLogger.Log("EmptySensor switched to true.");
-            while (true) // wait till a FillingMachine is in State READY_TO_FILL
+            // wait till a FillingMachine is in State READY_TO_FILL
+            // Note: the following code performs busy waiting which is a anti pattern. However, for the sake of simplicity, this implementation was chosen. A potential fix involves adding a Thread.Sleep(x) to reduce the polling rate.
+            while (true)
             {
                 foreach (FillingMachine machine in fillingMachines)
                 {
@@ -55,7 +57,9 @@ public class Worker : IWorker
         if (!controlSystem.GetFullPlaceSensor())
         {
             SimulatorLogger.Log("FullSensor switched to false.");
-            while (true) // wait till a FillingMachine is in State FILLING_COMPLETE
+            // wait till a FillingMachine is in State FILLING_COMPLETE
+            // See same Note as in OnEmptySensorChanged()
+            while (true)
             {
                 foreach (FillingMachine machine in fillingMachines)
                 {
