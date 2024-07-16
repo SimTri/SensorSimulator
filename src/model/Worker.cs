@@ -29,14 +29,18 @@ public class Worker : IWorker
         if (controlSystem.GetEmptyPlaceSensor())
         {
             SimulatorLogger.Log("EmptySensor switched to true.");
-            foreach (FillingMachine machine in fillingMachines)
+            while (true) // wait till a FillingMachine is in State READY_TO_FILL
             {
-                if (machine.State == FillingMachineState.READY_TO_FILL)
+                foreach (FillingMachine machine in fillingMachines)
                 {
-                    this.SimulateWorkerLatency();
-                    controlSystem.SetEmptyPlaceSensor(false);
-                    SimulatorLogger.Log("EmptySensor switched to false.");
-                    machine.LoadMachine();
+                    if (machine.State == FillingMachineState.READY_TO_FILL)
+                    {
+                        this.SimulateWorkerLatency();
+                        controlSystem.SetEmptyPlaceSensor(false);
+                        SimulatorLogger.Log("EmptySensor switched to false.");
+                        machine.LoadMachine();
+                        return;
+                    }
                 }
             }
         }
@@ -51,14 +55,18 @@ public class Worker : IWorker
         if (!controlSystem.GetFullPlaceSensor())
         {
             SimulatorLogger.Log("FullSensor switched to false.");
-            foreach (FillingMachine machine in fillingMachines)
+            while (true) // wait till a FillingMachine is in State FILLING_COMPLETE
             {
-                if (machine.State == FillingMachineState.FILLING_COMPLETE)
+                foreach (FillingMachine machine in fillingMachines)
                 {
-                    this.SimulateWorkerLatency();
-                    machine.UnloadMachine();
-                    controlSystem.SetFullPlaceSensor(true);
-                    SimulatorLogger.Log("FullSensor switched to true.");
+                    if (machine.State == FillingMachineState.FILLING_COMPLETE)
+                    {
+                        this.SimulateWorkerLatency();
+                        machine.UnloadMachine();
+                        controlSystem.SetFullPlaceSensor(true);
+                        SimulatorLogger.Log("FullSensor switched to true.");
+                        return;
+                    }
                 }
             }
         }

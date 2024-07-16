@@ -9,7 +9,7 @@ public class FillingMachine
 
     public FillingMachineState State
     {
-        get;
+        get { return fillingMachineState; }
         // no setter as State should never be directly modifiable
     }
 

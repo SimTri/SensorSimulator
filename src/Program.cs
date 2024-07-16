@@ -7,7 +7,7 @@ Tuple<TimeSpan, TimeSpan> timeRangeFillingTime = Tuple.Create(TimeSpan.FromSecon
 
 FillingMachine machine1 = new FillingMachine(1, timeRangeFillingTime, FillingMachineState.FILLING);
 FillingMachine machine2 = new FillingMachine(2, timeRangeFillingTime, FillingMachineState.FILLING_COMPLETE);
-FillingMachine machine3 = new FillingMachine(3, timeRangeFillingTime);
+FillingMachine machine3 = new FillingMachine(3, timeRangeFillingTime, FillingMachineState.READY_TO_FILL);
 
 HashSet<FillingMachine> fillingMachines = new HashSet<FillingMachine> { machine1, machine2, machine3 };
 
