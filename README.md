@@ -4,7 +4,7 @@ A repository containing code for a technical interview.
 
 ## General Notes
 
-The code is executable, however due to missing components (as defined in the description), no state changes of the sensors are simulated. 
+The code is executable, however due to missing components (as defined in the instructions), no state changes of the sensors are simulated. 
 
 ## Requirements
 
