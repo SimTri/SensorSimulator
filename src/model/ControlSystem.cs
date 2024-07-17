@@ -1,5 +1,7 @@
 /// <summary>
-/// This class represents the Leitsteuerungssystem. It implements the IControlSystem interface. As the implementation is not part of the instructions, all methods contain no logic and simply serve as stub methods.
+/// This class represents the Leitsteuerungssystem. It implements the
+/// IControlSystem interface. As the implementation is not part of the
+/// instructions, all methods contain no logic and simply serve as stub methods.
 /// </summary>
 public class ControlSystem : IControlSystem
 {

@@ -1,5 +1,6 @@
 /// <summary>
-/// Provides the interface for a Worker such that the Leitsteuerungssystem may interact with it using the "Observer Pattern".
+/// Provides the interface for a Worker such that the Leitsteuerungssystem may
+/// interact with it using the "Observer Pattern".
 /// </summary>
 public interface IWorker
 {

@@ -1,5 +1,12 @@
 /// <summary>
-/// This class represents a Worker, implementing the IWorker interface. It handles a collection (3 according to the instructions) of FillingMachines. The Worker has a ControlSystem, providing API calls, an enumerable collection of FIllingMachines and a timeRangeWorkerLatency, which defines a time range out of which a latency of the workers actions is randomly selected. The primary logic is contained in methods OnEmptyPlaceSensorChanged() and OnFullPlaceSensorChanged() which cause the worker to perform actions (loading/unloading) on the FillingMachines.
+/// This class represents a Worker, implementing the IWorker interface. It
+/// handles a collection (3 according to the instructions) of FillingMachines.
+/// The Worker has a ControlSystem, providing API calls, an enumerable
+/// collection of FIllingMachines and a timeRangeWorkerLatency, which defines a
+/// time range out of which a latency of the workers actions is randomly
+/// selected. The primary logic is contained in methods
+/// OnEmptyPlaceSensorChanged() and OnFullPlaceSensorChanged() which cause the
+/// worker to perform actions (loading/unloading) on the FillingMachines.
 /// </summary>
 public class Worker : IWorker
 {
@@ -10,9 +17,13 @@ public class Worker : IWorker
     /// <summary>
     /// Constructs a object of type Worker.
     /// </summary>
-    /// <param name="controlSystem">An object implementing the IControlSystem interface.</param>
-    /// <param name="fillingMachines">An enumerable collection of type FillingMachines the worker operates.</param>
-    /// <param name="timeRangeWorkerLatency">A Tuple of TimeSpans used to compute the worker latency, where the first element defines the lower and the second element the upper bound.</param>
+    /// <param name="controlSystem">An object implementing the IControlSystem
+    /// interface.</param>
+    /// <param name="fillingMachines">An enumerable collection of type
+    /// FillingMachines the worker operates.</param>
+    /// <param name="timeRangeWorkerLatency">A Tuple of TimeSpans used to
+    /// compute the worker latency, where the first element defines the lower
+    /// and the second element the upper bound.</param>
     public Worker(IControlSystem controlSystem, IEnumerable<FillingMachine> fillingMachines, Tuple<TimeSpan, TimeSpan> timeRangeWorkerLatency)
     {
         this.controlSystem = controlSystem;
@@ -21,16 +32,27 @@ public class Worker : IWorker
     }
 
     /// <summary>
-    /// This method is invoked by the ControlSystem (Leitsteuerungssystem) on a state change of the EmptyPlaceSensor. If the getEmptyPlaceSensor() returns true, a Machine in state "READY_TO_FILL" is selected and "loaded" with the empty container. This frees the EmptyPlace effectively setting its state to false.
+    /// This method is invoked by the ControlSystem (Leitsteuerungssystem) on a
+    /// state change of the EmptyPlaceSensor. If the getEmptyPlaceSensor()
+    /// returns true, a Machine in state "READY_TO_FILL" is selected and
+    /// "loaded" with the empty container. This frees the EmptyPlace effectively
+    /// setting its state to false.
     /// </summary>
     public void OnEmptyPlaceSensorChanged()
     {
-        // implementation of "OnEmptyPlaceSensorChanged" may also invoke this method when EmptyPlaceSensor is false, we therefore check the value to be true
+        // implementation of "OnEmptyPlaceSensorChanged" may also invoke this
+        // method when EmptyPlaceSensor is false, we therefore check the value
+        // to be true
         if (controlSystem.GetEmptyPlaceSensor())
         {
             SimulatorLogger.Log("EmptySensor switched to true.");
-            // wait till a FillingMachine is in State READY_TO_FILL
-            // Note: the following code performs busy waiting which is a anti pattern. However, for the sake of simplicity, this implementation was chosen. Potential fixes involve adding a Thread.Sleep(x) in the body of the loop to reduce the polling rate (depending on simulation accuracy/performance requirements) or a callback function on state changes in FillingMachines.
+            // wait till a FillingMachine is in State READY_TO_FILL Note: the
+            // following code performs busy waiting which is a anti pattern.
+            // However, for the sake of simplicity, this implementation was
+            // chosen. Potential fixes involve adding a Thread.Sleep(x) in the
+            // body of the loop to reduce the polling rate (depending on
+            // simulation accuracy/performance requirements) or a callback
+            // function on state changes in FillingMachines.
             while (true)
             {
                 foreach (FillingMachine machine in fillingMachines)
@@ -49,7 +71,10 @@ public class Worker : IWorker
     }
 
     /// <summary>
-    /// This method is invoked by the ControlSystem (Leitsteuerungssystem) on a state change of the FullPlaceSensor. If the getFullPlaceSensor() returns false, a Machine in state "FILLING_COMPLETE" is selected and "unloaded". This occupies the FullPlace effectively setting its state to true.
+    /// This method is invoked by the ControlSystem (Leitsteuerungssystem) on a
+    /// state change of the FullPlaceSensor. If the getFullPlaceSensor() returns
+    /// false, a Machine in state "FILLING_COMPLETE" is selected and "unloaded".
+    /// This occupies the FullPlace effectively setting its state to true.
     /// </summary>
     public void OnFullPlaceSensorChanged()
     {
@@ -77,7 +102,8 @@ public class Worker : IWorker
     }
 
     /// <summary>
-    /// This method aims to simulate the latency induced by the actions of worker operating the FillingMachines 
+    /// This method aims to simulate the latency induced by the actions of
+    /// worker operating the FillingMachines 
     /// </summary>
     private void SimulateWorkerLatency()
     {

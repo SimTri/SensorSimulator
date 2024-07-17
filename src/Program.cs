@@ -22,7 +22,8 @@ SimulatorLogger.Log("Starting simulation, press 'c' to terminate the simulation.
 // simple termination logic to prevent to program from termination
 while (true)
 {
-    String terminationString = Console.ReadLine() ?? ""; // ReadLine may return null which is replaced by empty string
+    // ReadLine may return null which is replaced by empty string
+    String terminationString = Console.ReadLine() ?? "";
     if (terminationString.ToLower().Equals("c"))
     {
         break;

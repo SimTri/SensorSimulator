@@ -1,5 +1,6 @@
 /// <summary>
-/// Provides the interface for the API of the Leitsteuerungssystem according to the instructions.
+/// Provides the interface for the API of the Leitsteuerungssystem according to
+/// the instructions.
 /// </summary>
 public interface IControlSystem
 {

@@ -14,5 +14,5 @@ The code is executable, however due to missing components (as defined in the ins
 
 1. Open a command line at the root directory of this repository.
 2. Run command `dotnet run`.
-3. Press `c` and `Enter` in the command line to terminate the program.
+3. Press `c` followed by `Enter` in the command line to terminate the program.
 

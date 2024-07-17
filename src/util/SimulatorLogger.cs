@@ -1,5 +1,6 @@
 /// <summary>
-/// This class defines a primitive/simple Logger to log the most important events to the console.
+/// This class defines a primitive/simple Logger to log the most important
+/// events to the console.
 /// </summary>
 public static class SimulatorLogger
 {
