@@ -30,7 +30,7 @@ public class Worker : IWorker
         {
             SimulatorLogger.Log("EmptySensor switched to true.");
             // wait till a FillingMachine is in State READY_TO_FILL
-            // Note: the following code performs busy waiting which is a anti pattern. However, for the sake of simplicity, this implementation was chosen. A potential fix involves adding a Thread.Sleep(x) to reduce the polling rate.
+            // Note: the following code performs busy waiting which is a anti pattern. However, for the sake of simplicity, this implementation was chosen. Potential fixes involve adding a Thread.Sleep(x) in the body of the loop to reduce the polling rate (depending on simulation accuracy/performance requirements) or a callback function on state changes in FillingMachines.
             while (true)
             {
                 foreach (FillingMachine machine in fillingMachines)
